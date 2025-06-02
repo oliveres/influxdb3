@@ -1,0 +1,34 @@
+services:
+  influxdb3-core:
+    container_name: influxdb3-core
+    image: influxdb:3-core
+    platform: linux/amd64
+    ports:
+      - 8181:8181
+    command:
+      - influxdb3
+      - serve
+      - --node-id=node0
+      - --object-store=file
+      - --data-dir=/var/lib/influxdb3
+    volumes:
+      - influxdb3_core_data:/var/lib/influxdb3
+
+  influxdb3-explorer:
+    image: quay.io/influxdb/influxdb3-explorer:latest
+    container_name: influxdb3-explorer
+    ports:
+      - "8888:80"
+      - "8889:8888"
+    volumes:
+      - influxdb3_explorer_config:/app-root/config:ro
+      - influxdb3_explorer_db:/db:rw
+      - influxdb3_explorer_ssl:/etc/nginx/ssl:ro
+    command: --mode=admin
+    restart: unless-stopped
+
+volumes:
+  influxdb3_core_data:
+  influxdb3_explorer_config:
+  influxdb3_explorer_db:
+  influxdb3_explorer_ssl:
