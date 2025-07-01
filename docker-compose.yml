@@ -15,7 +15,7 @@ services:
       - influxdb3_core_data:/var/lib/influxdb3
 
   influxdb3-explorer:
-    image: quay.io/influxdb/influxdb3-explorer:latest
+    image: influxdata/influxdb3-ui:latest
     container_name: influxdb3-explorer
     ports:
       - "8888:80"
@@ -31,4 +31,4 @@ volumes:
   influxdb3_core_data:
   influxdb3_explorer_config:
   influxdb3_explorer_db:
-  influxdb3_explorer_ssl:
+  influxdb3_explorer_ssl: 
